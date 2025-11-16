@@ -10,11 +10,11 @@ const (
 )
 
 type PullRequest struct {
-	PullRequestID     string // pull_request_id
-	Name              string // pull_request_name
-	AuthorID          string
-	Status            PRStatus
-	AssignedReviewers []string // список user_id
-	CreatedAt         *time.Time
-	MergedAt          *time.Time
+	PullRequestID     string   `db:"pull_request_id"`
+	Name              string   `db:"pull_request_name"`
+	AuthorID          string   `db:"author_id"`
+	Status            PRStatus `db:"status"`
+	AssignedReviewers []string
+	CreatedAt         *time.Time `db:"created_at"`
+	MergedAt          *time.Time `db:"merged_at"`
 }

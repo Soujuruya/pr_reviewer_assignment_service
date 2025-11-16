@@ -1,6 +1,6 @@
 package user
 
-import "pr_reviewer_assignment_service/internal/dto/pr"
+import pr "pr_reviewer_assignment_service/internal/dto/pr"
 
 type GetReviewResponse struct {
 	UserID       string          `json:"user_id"`

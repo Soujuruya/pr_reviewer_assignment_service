@@ -1,6 +1,6 @@
 package entity
 
 type Team struct {
-	TeamName string // уникальное имя команды
-	Members  []User // список пользователей команды
+	TeamName string `db:"team_name"`
+	Members  []User
 }

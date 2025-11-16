@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: pr_service_db
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./configs/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pr_service"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pr_network
+
+  migrate:
+    build:
+      context: .
+      target: migrate
+    container_name: pr_service_migrate
+    env_file:
+      - ./configs/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint:
+      - sh
+      - -c
+      - |
+        echo "Waiting for Postgres..."
+        sleep 10
+        echo "Running migrations"
+        /app/migrate -path /app/migrations -command up
+    networks:
+      - pr_network
+
+  app:
+    build:
+      context: .
+      target: pr_service
+    container_name: pr_service_app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./configs/.env
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - pr_network
+
+volumes:
+  postgres_data:
+
+networks:
+  pr_network:
+    driver: bridge

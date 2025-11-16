@@ -1,4 +1,4 @@
-package user
+package usecase
 
 import (
 	"context"
@@ -11,5 +11,5 @@ type UserRepository interface {
 }
 
 type PRGetter interface {
-	GetPRsByReviewer(ctx context.Context, userID string) ([]*entity.PullRequest, error)
+	GetByReviewer(ctx context.Context, userID string) ([]*entity.PullRequest, error)
 }
