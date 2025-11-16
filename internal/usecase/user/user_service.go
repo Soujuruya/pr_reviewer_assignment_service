@@ -5,14 +5,13 @@ import (
 
 	"pr_reviewer_assignment_service/internal/dto/pr"
 	"pr_reviewer_assignment_service/internal/dto/user"
-	"pr_reviewer_assignment_service/internal/repository/postgres"
 	"pr_reviewer_assignment_service/pkg/logger"
 
 	"go.uber.org/zap"
 )
 
 type UserService struct {
-	repo   *postgres.UserRepository
+	repo   UserRepository
 	prRepo PRGetter
 	logger logger.Logger
 }
@@ -21,7 +20,7 @@ func (s *UserService) Logger() logger.Logger {
 	return s.logger
 }
 
-func NewUserService(repo *postgres.UserRepository, prRepo PRGetter, logger logger.Logger) *UserService {
+func NewUserService(repo UserRepository, prRepo PRGetter, logger logger.Logger) *UserService {
 	return &UserService{repo: repo, prRepo: prRepo, logger: logger}
 }
 

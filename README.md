@@ -19,7 +19,7 @@ cp configs/.env.example configs/.env
 ```bash
 make build
 ```
-Запуск всех сервисов c применением миграций(сервис готов к работе):
+Запуск всех сервисов c применением миграций(сервис готов к работе на порту :8080):
 
 ```bash
 make up
@@ -61,4 +61,10 @@ make make migrate-version
 
 ```bash
 make run-local
+```
+
+5. Запуск тестов:
+
+```bash
+make test
 ```

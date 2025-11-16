@@ -7,14 +7,13 @@ import (
 	team "pr_reviewer_assignment_service/internal/dto/team"
 
 	"pr_reviewer_assignment_service/internal/entity"
-	"pr_reviewer_assignment_service/internal/repository/postgres"
 	"pr_reviewer_assignment_service/pkg/logger"
 
 	"go.uber.org/zap"
 )
 
 type TeamService struct {
-	repo   *postgres.TeamRepository
+	repo   TeamRepository
 	logger logger.Logger
 }
 
@@ -22,7 +21,7 @@ func (s *TeamService) Logger() logger.Logger {
 	return s.logger
 }
 
-func NewTeamService(repo *postgres.TeamRepository, logger logger.Logger) *TeamService {
+func NewTeamService(repo TeamRepository, logger logger.Logger) *TeamService {
 	return &TeamService{repo: repo, logger: logger}
 }
 

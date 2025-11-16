@@ -1,4 +1,4 @@
-.PHONY: build run up down logs migrate-up migrate-down migrate-version
+.PHONY: build run up down logs migrate-up migrate-down migrate-version test
 
 build:
 	docker-compose build
@@ -23,3 +23,8 @@ migrate-version:
 
 run-local:
 	ENV_PATH=./configs/.env go run ./cmd/api/main.go
+
+test:
+	go test ./tests/pr 
+	go test ./tests/team 
+	go test ./tests/user 
